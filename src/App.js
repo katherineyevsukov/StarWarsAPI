@@ -2,6 +2,28 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Character from './components/Character';
+import styled from 'styled-components'
+
+
+const StyledHeader = styled.header`
+  background-color: rgba(255, 255, 255, 0.5);
+  margin: 4rem 0;
+
+  h1 {
+    font-family: Starjhol;
+    font-size: 7rem;
+    font-weight: 900;
+    
+  }
+`
+const StyledCharactersList = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  margin: 0 auto;
+
+  
+`
 
 const App = () => {
   const [characters, setCharacters] = useState([])
@@ -26,22 +48,22 @@ const App = () => {
       setError(true)
     })
     }, [])
-
-  return (
+    
+    return (
     <div className="App">
-      <header>
-      <h1 className="Header">STAR WARS</h1>
-      {error && <h2>Sorry, there was a problem retrieving character data! Please try again later.</h2>}
-        </header>
-        <div>
-        {characters.map((char, idx) => {
-          return <Character character={char} key={idx}/>
-        })
-      }
-      </div>
-      
-    </div>
-  );
+    <StyledHeader>
+    <h1 className="Header">STAR WARS</h1>
+    {error && <h2>Sorry, there was a problem retrieving character data! Please try again later.</h2>}
+      </ StyledHeader>
+      <StyledCharactersList>
+      {characters.map((char, idx) => {
+        return <Character character={char} key={idx}/>
+      })
+    }
+    </StyledCharactersList>
+    
+  </div>
+);
 }
 
 export default App;
