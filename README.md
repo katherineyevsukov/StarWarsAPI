@@ -81,6 +81,17 @@ After finishing your required elements, you can push your work further. These go
 Be prepared to demonstrate your understanding of this week's concepts by answering questions on the following topics. You might prepare by writing down your own answers before hand.
 
 1. What is React JS and what problems does it solve? Support your answer with concepts introduced in class and from your personal research on the web.
+
+React JS is a library in JavaScript made to build out User Interfaces using components. React was built to solve problems of complex state when dealing with a large amount of data. It helps to manage this data without weighing down the DOM. React uses a 'virtual DOM' that interacts with the actual DOM. When the data or 'state' in the app changes, the virtual DOM is updated and is able to update the actual DOM updating ONLY the nodes that have changed. 
+
 1. Describe component state.
+
+In React, the 'state' of a component determines how that component renders and behaves. State is handled and updated inside of a component. The state will change depending on something a user has done. For example, if our app uses a checkbox to display information, the 'state' of the checkbox would be whether it is checked or unchecked. The information that is displayed will change when the user clicks on it.
+
 1. Describe props.
+
+Props are like arguments to a function. When you create a component in react, you must pass it the props that you want it to use. Props are useful in displaying information without hard-coding that information. For example, if you have a component that is set to display a photo with a caption, the props it would use would be the images source URL and the caption. If the props change at any point outside of the component, the component will re-render to display the new photo and caption.
+
 1. What are side effects, and how do you sync effects in a React component to changes of certain state or props?
+
+Side effects in React are anything that affects something outside of the scope of the function being executed. Making an API request is an example of a side effect. In order to sync effects to changes of certain state or props, we can pass in a dependency array as the second argument to our effect hook. An empty array will cause the hook to run only once (when the component mounts). However, passing state or props into the array will allow the hook to sync to changes in those specifically, running whenever there is an update.
