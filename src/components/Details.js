@@ -1,5 +1,7 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
+import Homeworld from './Homeworld';
 
 const StyledDetailsBox = styled.div `
     position: fixed;
@@ -10,13 +12,13 @@ const StyledDetailsBox = styled.div `
     height: 100%;
     overflow: auto;
     background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.6);
     
 
 .character-info{
     background-color: #fefefe;
     box-shadow: 2px 8px 12px 20px rgba(143,252,255, 1);
-    margin: 25% auto;
+    margin: 25% auto 10% auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
@@ -49,13 +51,48 @@ ul {
     font-weight: bold;
 }
 
+.homeworld-button{
+    margin-top: 1em;
+    font-size: 1.6rem;
+    font-style: italic;
+    background-color: black;
+    color: yellow;
+}
+
+
 `
 
 export default function Details(props){
-    const { character, setDetails } = props
+    const { character, setDetails, setError } = props
+    const [planet, setPlanet] = useState([])
+    const [homeworld, setHomeworld] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [closeHome, setCloseHome] = useState(false)
     
-    console.log(character)
+
+    useEffect(() => {
+        axios.get(`${character.homeworld}`)
+        .then(res => {
+            setLoading(false)
+            console.log(res.data)
+            setPlanet(res.data)
+        })
+        .catch(err => {
+            setLoading(false)
+            console.log(err)
+            setError(true)
+        })
+    }, [homeworld])
+
+   const homeworldClick = (event) =>{
+    setLoading(true)   
+    setHomeworld(true)
+    setCloseHome(true)
+   }
+    
+    
     return(
+        <>
         <StyledDetailsBox>
         <div className='character-info'>
             <button onClick={event => setDetails(false)}className='close'>X</button>
@@ -69,8 +106,13 @@ export default function Details(props){
                 <li>Birth Year: {character.birth_year}</li>
                 <li>Gender: {character.gender}</li>
             </ul>
+        {!closeHome? <button className='homeworld-button' onClick={homeworldClick}>Learn about my Homeworld</button> : null}
         </div>
+            {loading && <p>Loading</p>}
+           { homeworld && <Homeworld planet={planet}/>}
         </StyledDetailsBox>
+       
+        </>
     )
     
     } 

@@ -40,7 +40,6 @@ const App = () => {
     
     axios.get('https://swapi.dev/api/people')
     .then(res => {
-      console.log(res.data)
       setCharacters(res.data)
     })
     .catch(err => {
@@ -57,7 +56,7 @@ const App = () => {
       </ StyledHeader>
       <StyledCharactersList>
       {characters.map((char, idx) => {
-        return <Character character={char} key={idx}/>
+        return <Character setError={setError} character={char} key={idx}/>
       })
     }
     </StyledCharactersList>
